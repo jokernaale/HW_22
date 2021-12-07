@@ -14,23 +14,27 @@
 int main() {
 
 
-    int choose = 0;
+    int choose ;
     AirportManager airportManager;
     Airport airport;
-    initAirportManager(&airportManager);
-
-    printf("If you want add Airport press 1\n");
-    scanf("%d", &choose);
-    getchar();
-    while (choose == 1) {
-        initAirport(&airport);
-        addAirport(&airportManager, &airport);
-        printf("If you want add Airport press 1\n");
-        scanf("%d", &choose);
-        getchar();
-    }
-
     Airline airline;
+//    initAirportManager(&airportManager);
+//
+//    printf("Do you want to add an airport?\n");
+//    choose = checkValidityAnswer1or2(&choose);
+//    //scanf("%d", &choose);
+//    //getchar();
+//    while (choose == 1) {
+//        initAirport(&airport);
+//        addAirport(&airportManager, &airport);
+//        printf("If you want add Airport press 1\n");
+//        scanf("%d", &choose);
+//        getchar();
+//    }
+
+    firstInitAirportManager(&airportManager, &airport);
+
+
     initAirline(&airline);
 
 

@@ -3,7 +3,22 @@
 #include <stdlib.h>
 #include "AirportManager.h"
 
-//comment to check
+int checkValidityAnswer1or2(int *answer) //TODO:07-12-2021
+{
+    do
+    {
+        printf("Enter one of two choices.\n1-yes 2-no\n");
+        scanf("%d", answer);
+        if (*answer == 1 || *answer == 2)
+        {
+            rewind(stdin); //TODO: проверить или тут надо чистить буффер?
+            return *answer;
+        }
+    } while (*answer != 1 || *answer != 2);
+    rewind(stdin); //TODO: проверить или тут надо чистить буффер?
+    return *answer;
+}
+
 void initAirportManager(AirportManager *airportManager) {
     airportManager->airportArr=NULL;
     airportManager->countOfAirport = 0;
@@ -51,6 +66,24 @@ Airport *findAirportByName(char *name, AirportManager *airportManager) {
     }
     return NULL;
 }
+
+void firstInitAirportManager(AirportManager* airportManager, Airport* airport) //TODO:07-12-2021
+{
+    int choose;
+
+    printf("Do you want to add an airport?\n");
+    choose = checkValidityAnswer1or2(&choose);
+    if(choose == 1)
+    {
+        initAirport(airport);
+        addAirport(airportManager, airport);
+    }
+    else
+    {
+        printf("You choose not to add an airport.\n");
+    }
+}
+
 
 void freeAirportManager(AirportManager *airportManager) {
     int i;

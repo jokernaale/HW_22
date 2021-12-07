@@ -3,7 +3,7 @@
 
 #include "Flight.h"
 
-#define MAXSIZE 255
+//#define MAXSIZE 255 TODO: added it int StringFunc.h
 typedef struct {
     char *name;
     int countOfFlights;
