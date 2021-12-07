@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "AirportManager.h"
 
+//comment to check
 void initAirportManager(AirportManager *airportManager) {
     airportManager->airportArr=NULL;
     airportManager->countOfAirport = 0;
