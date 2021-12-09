@@ -7,9 +7,11 @@
 
 #include "Checker.h"
 
+#include "StringFunc.h" //TODO: 09-12-2021
+
 
 void initAirport(Airport *airport) {
-    int i;
+//    int i;
     char name[SIZEMAX];
     char country[SIZEMAX];
     char city[SIZEMAX];
@@ -17,8 +19,9 @@ void initAirport(Airport *airport) {
     char number[SIZEMAX];
 
     printf("Please enter a name for Airport\n");
-    gets(name);
-    airport->name = strdup(name);
+//    gets(name);
+    airport->name = strdup(getStringFromUser(name)); //TODO: 09-12-2021
+    printf("The airport name is - | %s |\n",airport->name);
     setAddress(country,city,street,number);
     airport->address = strdup(country);
 
@@ -26,14 +29,30 @@ void initAirport(Airport *airport) {
 void setAddress(char* country,char* city,char* street, char* number)
 {
 
-    printf("Please enter a country for Airport\n");
-    gets(country);
-    printf("Please enter a city for Airport\n");
-    gets(city);
-    printf("Please enter a street for Airport\n");
-    gets(street);
-    printf("Please enter a number of house for Airport\n");
-    gets(number);
+    printf("\nPlease enter a country for Airport\n");
+  //  gets(country);
+    country = strdup(getStringFromUser(country)); //TODO: 09-12-2021
+    checkIsSpaceGiven(country); //TODO: 09-12-2021 do not forget to do free
+    printf("The country is - |%s|\n",country);
+
+    printf("\nPlease enter a city for Airport\n");
+//    gets(city);
+    city = strdup(getStringFromUser(city)); //TODO: 09-12-2021
+    checkIsSpaceGiven(city); //TODO: 09-12-2021 do not forget to do free
+    printf("The city is - |%s|\n",city);
+
+    printf("\nPlease enter a street for Airport\n");
+//    gets(street);
+    street = strdup(getStringFromUser(street)); //TODO: 09-12-2021
+    checkIsSpaceGiven(street); //TODO: 09-12-2021 do not forget to do free
+    printf("The street is - |%s|\n",street);
+
+    printf("\nPlease enter a number of house for Airport\n");
+//    gets(number);
+    number = strdup(getStringFromUser(number)); //TODO: 09-12-2021
+    checkIsSpaceGiven(number); //TODO: 09-12-2021 do not forget to do free
+    printf("The number is - |%s|\n",number);
+
     doCheck(country);
     doCheck(city);
     doCheck(street);

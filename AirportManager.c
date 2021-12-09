@@ -73,17 +73,21 @@ void firstInitAirportManager(AirportManager* airportManager, Airport* airport) /
     airportManager->countOfAirport = 0;
     int choose;
 
-    printf("Do you want to add an airport?\n");
-    choose = checkValidityAnswer1or2(&choose);
-    if(choose == 1)
+    do
     {
-        initAirport(airport);
-        addAirport(airportManager, airport);
-    }
-    else
-    {
-        printf("You choose not to add an airport.\n");
-    }
+        printf("Do you want to add an airport?\n");
+        choose = checkValidityAnswer1or2(&choose);
+        if(choose == 1)
+        {
+            initAirport(airport);
+            addAirport(airportManager, airport);
+        }
+        else
+        {
+            printf("You choose not to add an airport.\n");
+        }
+    }while(choose == 1);
+
 }
 
 

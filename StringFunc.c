@@ -1,11 +1,22 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
-#include "stringFunc.h"
+#include "StringFunc.h"
+
+int checkIsSpaceGiven(char* workPointer)
+{
+    if (! (workPointer))
+    {
+        printf("\nERROR! Out of memory!\n");
+        return -1;
+    }
+    printf("\nSUCCESS - memory was given\n");
+    return 0;
+}
 
 char* myGets(char* buf, size_t size)
 {
-    int c;
+//    int c;
     if(buf != NULL && size > 0)
     {
         if(fgets(buf,size,stdin))
@@ -17,4 +28,14 @@ char* myGets(char* buf, size_t size)
         *buf = '\0';
     }
     return NULL;
+}
+
+char* getStringFromUser(char* workArray)
+{
+    do
+    {
+        if ((*workArray) == '\0') printf("You have entered an empty data. Please reenter the data.\n");
+        myGets(workArray,MAXSIZE);
+    } while ( (*workArray) == '\0'); //TODO: while our string will not an emptyStrung
+    return workArray;
 }

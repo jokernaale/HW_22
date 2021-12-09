@@ -11,19 +11,20 @@
 int initAirline(Airline *airline) {
     char name[MAXSIZE];
     printf("Please enter the name of airline: \n");
-    //gets(name);
-//    myGets(name,MAXSIZE);
-    do {
-        if ((*name) == '\0') printf("You have entered an empty name. Please reenter the name.\n");
-        myGets(name,MAXSIZE);
-    } while ( (*name) == '\0'); //TODO: while our string will not an emptyStrung
-    airline->name = strdup(name);
-    if (! (airline->name))
-    {
-        printf("\nERROR! Out of memory! Did NOT succeed put name to the airline\n");
-        return -1;
-    }
-    printf("\nSUCCESS - the name of airline - | %s |  was put successfully\n", airline->name);
+//    //gets(name);
+////    myGets(name,MAXSIZE);
+//    do {
+//        if ((*name) == '\0') printf("You have entered an empty name. Please reenter the name.\n");
+//        myGets(name,MAXSIZE);
+//    } while ( (*name) == '\0'); //TODO: while our string will not an emptyStrung
+    airline->name = strdup(getStringFromUser(name));
+//    if (! (airline->name))
+//    {
+//        printf("\nERROR! Out of memory! Did NOT succeed put name to the airline\n");
+//        return -1;
+//    }
+//    printf("\nSUCCESS - the name of airline - | %s |  was put successfully\n", airline->name);
+    checkIsSpaceGiven(airline->name);
     airline->flightArr = NULL;
     airline->countOfFlights = 0;
     return 0;
