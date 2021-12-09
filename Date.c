@@ -1,28 +1,85 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "Date.h"
 
 void initDate(t_date *date1) {
+    char date[MAXLENGHT];
+    char year[MAXLENGHT];
+    char day[MAXLENGHT];
+    char month[MAXLENGHT];
+    int status = 1;
 
-    int status = 0;
 
-    printf(" Enter date in format (day$$month$$year): \n");
-    scanf("%d$$%d$$%d",&date1->day,&date1->month,&date1->year);
 
-    status = isValidDate(date1);
-    while(status !=1)
-    {
-        printf(" Please enter a valid date in format (day$$month$$year) !\n");
-        scanf("%d$$%d$$%d",&date1->day,&date1->month,&date1->year);
+    do{
+        rewind(stdin);
+        printf(" Please enter a valid date in format (dd$$mm$$yyyy) !\n");
+        gets(date);
+        if(checkLength(date)!=1) status=0;
+        if(checkIndexDollar(date)!=1)status=0;
+        separateToInteger(date,day,month,year,date1);
         status = isValidDate(date1);
-    }
+    }while(status !=1);
+
+
+
 
         printf(" Date is valid!\n");
 
 }
 
+void separateToInteger(char*date,char*day,char*month,char*year,t_date* date1)
+{
+    memcpy(day,date,2);
+    date1->day= atoi(day);
+    memcpy(month,date+4,2);
+    date1->month= atoi(month);
+    memcpy(year,date+8,4);
+    date1->year= atoi(year);
+}
+
 void printDate(const t_date *date1) {
     printf("%d/%d/%d \n", date1->day, date1->month, date1->year);
 }
+
+int checkLength(char* date )
+{
+    if(strlen(date)==12)
+        return 1;
+    return 0;
+}
+
+int checkIndexDollar(char* date )
+{
+    if(date[2]=='$'&&date[3]=='$'&&date[6]=='$'&&date[7]=='$')
+        return 1;
+    return 0;
+}
+
+//int devideTheStringtoDateMonthYear(char* date)
+//{
+//    char* pForWork;
+//    int indexOfIteration = 1;
+//
+//    pForWork = strtok(date,"$$");
+//    if (*pForWork == '0')
+//    {
+//        char* pHelpForWork = strdup(pForWork); //TODO: не забыть free(pHelpForWork)
+//        pForWork = (char*) malloc (sizeof (char));
+//
+//    }
+//
+//    return 0;
+//}
+//char* word = NULL;
+//
+//word = strtok(stringWeGotFromUser, "$$");
+//
+//while (word != NULL)
+//{
+//word = strtok(NULL, "$$");
+//}
 
 int isValidDate(t_date *validDate)
 {
@@ -46,3 +103,4 @@ int isValidDate(t_date *validDate)
         return (validDate->day <= 30);
     return 1;
 }
+

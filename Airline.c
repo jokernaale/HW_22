@@ -43,6 +43,7 @@ void printAirline(const Airline *airline) {
 int addFlight(Flight *flight, Airline *airline) {
 
 
+
     airline->flightArr = (Flight **) realloc(airline->flightArr,
                                                  sizeof(Flight *) * (airline->countOfFlights + 1));
         if(checkMemory(airline->flightArr) == -1)return -1;

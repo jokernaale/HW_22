@@ -69,6 +69,8 @@ Airport *findAirportByName(char *name, AirportManager *airportManager) {
 
 void firstInitAirportManager(AirportManager* airportManager, Airport* airport) //TODO:07-12-2021
 {
+    airportManager->airportArr=NULL;
+    airportManager->countOfAirport = 0;
     int choose;
 
     printf("Do you want to add an airport?\n");

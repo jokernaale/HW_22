@@ -37,7 +37,7 @@ void setAddress(char* country,char* city,char* street, char* number)
     doCheck(country);
     doCheck(city);
     doCheck(street);
-    doCheck(number);
+
     connectWords(country, city, street, number);
 
 }
