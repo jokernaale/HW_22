@@ -1,4 +1,5 @@
 #include "Checker.h"
+#include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 
@@ -52,7 +53,7 @@ char *trimWhiteSpace(char *Str) {
             }
         }
     }
-    *(p2-1)='\0';
+    *(p2)='\0';
     return Str;
 }
 
@@ -64,20 +65,80 @@ void capitalLater(char *string) {
     }
 }
 
-int countOfWords(char *string)
+//---------------------------------------------------------------------------------------------
+void lowUp(char* string)
 {
-    char* delimit = "#";
-    int numOfWords = 0;
-    char* word;
-    word = strtok(string, delimit);
-    while (word)
+    int i;
+    for(i=0;i< strlen(string)-1;i+=2)
     {
+        string[i]= toupper(string[i]);
+        string[i+1]= tolower(string[i+1]);
+    }
+}
+int checkEvenLetters(char* string)
+{
+    if(strlen(string)%2==0){
+        return 1;
+    }
+    return 0;
+}
+int countWords(char* string) {
+
+    char *delimit = "#";
+    int numOfWords = 0;
+    char *word;
+
+
+
+    word = strtok(string, delimit);
+    while (word) {
         numOfWords++;
         word = strtok(NULL, delimit);
     }
-
     return numOfWords;
+}
+
+
+
+void  formatString(char *string,char* temp,int count) {
+    char *delimit = "#";
+    char *word;
+    if(count>1) {
+        word = strtok(string, delimit);
+        if (checkEvenLetters(word) == 1) {
+            lowUp(word);
+        }
+        temp = strcpy(temp, word);
+        temp = strcat(temp, "#");
+
+
+        while (word) {
+
+            word = strtok(NULL, delimit);
+            if (word != NULL) {
+                if (checkEvenLetters(word) == 1) {
+                    lowUp(word);
+                }
+                temp = strcat(temp, word);
+                temp = strcat(temp, "#");
+
+
+            }
+
+        }
+
+        temp[strlen(temp) - 1] = '\0';
+        printf("%s", temp);
+    }
+    else if(countWords(string)==1)
+    {
+        capitalLater(string);
+    }
+
 
 }
+
+
+
 
 

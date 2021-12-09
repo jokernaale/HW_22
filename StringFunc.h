@@ -5,6 +5,6 @@
 
 char*	myGets(char* buf, size_t size);
 char* getStringFromUser(char* workArray);
-int checkIsSpaceGiven(char* workPointer);
+int checkIfSpaceGiven(char* workPointer);
 
 #endif //_22_STRING_H

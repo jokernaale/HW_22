@@ -24,7 +24,7 @@ int initAirline(Airline *airline) {
 //        return -1;
 //    }
 //    printf("\nSUCCESS - the name of airline - | %s |  was put successfully\n", airline->name);
-    checkIsSpaceGiven(airline->name);
+    checkIfSpaceGiven(airline->name);
     airline->flightArr = NULL;
     airline->countOfFlights = 0;
     return 0;
