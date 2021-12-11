@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "StringFunc.h"
 
@@ -26,6 +27,18 @@ char *myGets(char *buf, size_t size) {
     return NULL;
 }
 
+char * myStrdup(const char *src)
+{
+    char *dst = malloc((strlen (src) + 1)*sizeof(char ));
+    if (dst == NULL)
+    {
+        printf("\nERROR! Out of memory!\n");
+        return NULL;
+    }
+    strcpy(dst, src);
+    return dst;
+}
+
 char *getStringFromUser(char *workArray) {
     do {
         if ((*workArray) == '\0') printf("You have entered an empty data. Please reenter the data.\n");
@@ -33,3 +46,5 @@ char *getStringFromUser(char *workArray) {
     } while ((*workArray) == '\0');
     return workArray;
 }
+
+
