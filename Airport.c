@@ -17,6 +17,7 @@ void initAirport(Airport *airport) {
     char city[SIZEMAX];
     char street[SIZEMAX];
     char number[SIZEMAX];
+    char temp[SIZEMAX];
 
     printf("Please enter a name for Airport\n");
 //    gets(name);
@@ -26,9 +27,10 @@ void initAirport(Airport *airport) {
 
 
 
-    doCheck(country);
-    doCheck(city);
-    doCheck(street);
+    doCheck(country,temp);
+    doCheck(city,temp);
+    doCheck(street,temp);
+    doCheck(number,temp);
 
     connectWords(country, city, street, number);
     airport->address = strdup(country);

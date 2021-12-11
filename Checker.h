@@ -4,11 +4,14 @@
 
 void capitalLater(char* string);
 char *trimWhiteSpace(char *str);
-void doCheck(char* string);
-int countOfWords(char *string);
+void doCheck(char* string, char* type);
+int countWords(char *string);
 void connectWords(char *country, char *city, char *street, char *number);
-void upLows(char* string);
+void lowUp(char* string);
 void checkString(char *string);
+void  formatString(char *string,char* temp,int count);
+int checkEvenLetters(char* string);
+
 
 
 #endif

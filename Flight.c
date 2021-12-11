@@ -11,7 +11,7 @@
 void initFlight(Flight *flight) {
     char departureName[SIZE];
     char arrivalName[SIZE];
-    gets();
+    gets(); //TODO: MYGETS
     printf("Please enter departure name : \n");
     gets(departureName);
     printf("Please enter arrival name : \n");

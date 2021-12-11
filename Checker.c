@@ -3,12 +3,14 @@
 #include <ctype.h>
 #include <string.h>
 
-void doCheck(char* string)
+void doCheck(char* string, char* temp)
 {
+
 
     strcpy(string, trimWhiteSpace(string));
     checkString(string);
-    capitalLater(string);
+    formatString(string,temp, countWords(string));
+
 
 }
 void connectWords(char *country, char *city, char *street, char *number) {
@@ -57,6 +59,9 @@ char *trimWhiteSpace(char *Str) {
     return Str;
 }
 
+
+
+
 void capitalLater(char *string) {
     while (*string == ' ')
         string++;
@@ -83,19 +88,15 @@ int checkEvenLetters(char* string)
     return 0;
 }
 int countWords(char* string) {
+int count=0;
+while(*string!='\0'){
+    if(*string=='#')
+        count++;
+    string++;
 
-    char *delimit = "#";
-    int numOfWords = 0;
-    char *word;
-
-
-
-    word = strtok(string, delimit);
-    while (word) {
-        numOfWords++;
-        word = strtok(NULL, delimit);
-    }
-    return numOfWords;
+}
+count++;
+    return count;
 }
 
 
@@ -128,7 +129,9 @@ void  formatString(char *string,char* temp,int count) {
         }
 
         temp[strlen(temp) - 1] = '\0';
-        printf("%s", temp);
+        string= strcpy(string,temp);
+
+
     }
     else if(countWords(string)==1)
     {
