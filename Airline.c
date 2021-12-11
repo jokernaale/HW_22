@@ -5,25 +5,15 @@
 #include <string.h>
 #include "Airline.h"
 #include "Plane.h"
-#include "StringFunc.h" //TODO: 07/12/2021
+#include "StringFunc.h"
 
 
 int initAirline(Airline *airline) {
     char name[MAXSIZE];
     printf("Please enter the name of airline: \n");
-//    //gets(name);
-////    myGets(name,MAXSIZE);
-//    do {
-//        if ((*name) == '\0') printf("You have entered an empty name. Please reenter the name.\n");
-//        myGets(name,MAXSIZE);
-//    } while ( (*name) == '\0'); //TODO: while our string will not an emptyStrung
-    airline->name = strdup(getStringFromUser(name));
-//    if (! (airline->name))
-//    {
-//        printf("\nERROR! Out of memory! Did NOT succeed put name to the airline\n");
-//        return -1;
-//    }
-//    printf("\nSUCCESS - the name of airline - | %s |  was put successfully\n", airline->name);
+
+    airline->name = myStrdup(getStringFromUser(name));
+
     checkIfSpaceGiven(airline->name);
     airline->flightArr = NULL;
     airline->countOfFlights = 0;
@@ -41,37 +31,42 @@ void printAirline(const Airline *airline) {
     }
 }
 
-int addFlight(Flight *flight, Airline *airline) {
-
-
+int addFlight(Flight *flight, Airline *airline, AirportManager *airportManager) {
+    if (checkCountOfAirports(airportManager) == 0) {
+        printf("There are not enough airport to set a flight\n"
+               "Error adding flight");
+        return 0;
+    }
 
     airline->flightArr = (Flight **) realloc(airline->flightArr,
-                                                 sizeof(Flight *) * (airline->countOfFlights + 1));
-        if(checkMemory(airline->flightArr) == -1)return -1;
-        airline->flightArr[airline->countOfFlights] = (Flight *) malloc(sizeof(Flight) * 1);
-        if (checkMemoryforArrFlight(airline->flightArr[airline->countOfFlights]) == -1)return -1;
-        airline->flightArr[airline->countOfFlights] = flight;
-
-        airline->countOfFlights++;
-        return 1;
+                                             sizeof(Flight *) * (airline->countOfFlights + 1));
+    if (checkMemory(airline->flightArr) == -1)return -1;
+    airline->flightArr[airline->countOfFlights] = (Flight *) malloc(sizeof(Flight) * 1);
+    if (checkMemoryforArrFlight(airline->flightArr[airline->countOfFlights]) == -1)return -1;
+    airline->flightArr[airline->countOfFlights] = flight;
+    airline->countOfFlights++;
+    return 1;
 
 }
 
 void doPrintFlightsWithPlaneCode(const Airline *airline) {
     int counter = 0;
+    char code[MAXLENGHT];
     if (airline->countOfFlights == 0) {
         printf("We dont have flights in our airline \n ");
     } else {
         int i;
-        char code[5];
+
         printf("Please enter a code of plane:\n");
-        gets(code);
+        rewind(stdin);
+        strcpy(code, getStringFromUser(code));
         printf("The flights with code %s\n", code);
         for (i = 0; i < airline->countOfFlights; i++) {
             if (isPlaneCodeInFlight(airline->flightArr[i], code) ==
-                1)
+                1) {
                 printFlight(airline->flightArr[i]);
-            counter++;
+                counter++;
+            }
         }
         if (counter == 0) {
             printf("We dont have flight with code %s: \n", code);
@@ -88,9 +83,11 @@ void doPrintFlightsWithPlaneType(const Airline *airline) {
         type typePlane = getType();
         printf("The flights with type %s\n", typeTitle[typePlane]);
         for (i = 0; i < airline->countOfFlights; i++) {
-            if (isPlaneTypeInFlight(airline->flightArr[i], typePlane))
+            if (isPlaneTypeInFlight(airline->flightArr[i], typePlane)== 1) {
                 printFlight(airline->flightArr[i]);
-            counter++;
+                counter++;
+            }
+
         }
         if (counter == 0) {
             printf("We dont have flight with type %s: \n", typeTitle[typePlane]);
@@ -107,9 +104,10 @@ void doCountFlightsFromName(const Airline *airline) {
         int counter = 0;
         char name[MAXSIZE];
         printf("Please enter a name of Airport");
-        gets(name);
+        rewind(stdin);
+        strcpy(name, getStringFromUser(name));
         for (i = 0; i < airline->countOfFlights; i++) {
-            if (strcmp(name, airline->flightArr[i]->departureNameAirport) == 0)
+            if (isFlightFromDestName(airline->flightArr[i], name) == 1)
                 counter++;
         }
 
@@ -143,4 +141,12 @@ int checkMemoryforArrFlight(Flight *flight) {
     }
     return 1;
 }
+
+int checkCountOfAirports(AirportManager *airportManager) {
+    if (airportManager->countOfAirport > 1)
+        return 1;
+    return 0;
+}
+
+
 

@@ -3,8 +3,12 @@
 
 #define MAXSIZE 255
 
-char*	myGets(char* buf, size_t size);
-char* getStringFromUser(char* workArray);
-int checkIfSpaceGiven(char* workPointer);
+char *myGets(char *buf, size_t size);
+
+char * myStrdup(const char *src);
+
+char *getStringFromUser(char *workArray);
+
+int checkIfSpaceGiven(char *workPointer);
 
 #endif //_22_STRING_H

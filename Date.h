@@ -19,10 +19,11 @@ void printDate(const t_date *date1);
 
 int isValidDate(t_date *validDate);
 
-int checkLength(char* date );
-int checkIndexDollar(char* date );
-void separateToInteger(char*date,char*day,char*month,char*year,t_date* date1);
+int checkLength(char *date);
 
+int checkIndexDollar(char *date);
+
+void separateToInteger(char *date, char *day, char *month, char *year, t_date *date1);
 
 
 #endif //HW_22_DATE_H

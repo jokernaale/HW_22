@@ -19,7 +19,8 @@ type getType();
 
 void printPlane(const Plane *plane);
 
-void freePlane(Plane* plane);
-int checkerCode(const char* code);
+void freePlane(Plane *plane);
+
+int checkerCode(const char *code);
 
 #endif

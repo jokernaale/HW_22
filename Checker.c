@@ -3,16 +3,16 @@
 #include <ctype.h>
 #include <string.h>
 
-void doCheck(char* string, char* temp)
-{
+void doCheck(char *string, char *temp) {
 
 
     strcpy(string, trimWhiteSpace(string));
     checkString(string);
-    formatString(string,temp, countWords(string));
+    formatString(string, temp, countWords(string));
 
 
 }
+
 void connectWords(char *country, char *city, char *street, char *number) {
     strcat(country, "@");
     strcat(country, city);
@@ -38,28 +38,23 @@ void checkString(char *string) {
 char *trimWhiteSpace(char *Str) {
     char *p = Str;
     char *p2 = Str;
-    while(*p!='\0')
-    {
-        if(*p==' ')
+    while (*p != '\0') {
+        if (*p == ' ')
             p++;
-        else if(*p!=' ')
-        {
+        else if (*p != ' ') {
             *p2 = *p;
             p2++;
             p++;
-            if(*p==' ')
-            {
-                *p2=*p;
+            if (*p == ' ') {
+                *p2 = *p;
                 p2++;
                 p++;
             }
         }
     }
-    *(p2)='\0';
+    *(p2) = '\0';
     return Str;
 }
-
-
 
 
 void capitalLater(char *string) {
@@ -71,40 +66,38 @@ void capitalLater(char *string) {
 }
 
 //---------------------------------------------------------------------------------------------
-void lowUp(char* string)
-{
+void lowUp(char *string) {
     int i;
-    for(i=0;i< strlen(string)-1;i+=2)
-    {
-        string[i]= toupper(string[i]);
-        string[i+1]= tolower(string[i+1]);
+    for (i = 0; i < strlen(string) - 1; i += 2) {
+        string[i] = toupper(string[i]);
+        string[i + 1] = tolower(string[i + 1]);
     }
 }
-int checkEvenLetters(char* string)
-{
-    if(strlen(string)%2==0){
+
+int checkEvenLetters(char *string) {
+    if (strlen(string) % 2 == 0) {
         return 1;
     }
     return 0;
 }
-int countWords(char* string) {
-int count=0;
-while(*string!='\0'){
-    if(*string=='#')
-        count++;
-    string++;
 
-}
-count++;
+int countWords(char *string) {
+    int count = 0;
+    while (*string != '\0') {
+        if (*string == '#')
+            count++;
+        string++;
+
+    }
+    count++;
     return count;
 }
 
 
-
-void  formatString(char *string,char* temp,int count) {
+void formatString(char *string, char *temp, int count) {
     char *delimit = "#";
     char *word;
-    if(count>1) {
+    if (count > 1) {
         word = strtok(string, delimit);
         if (checkEvenLetters(word) == 1) {
             lowUp(word);
@@ -129,12 +122,10 @@ void  formatString(char *string,char* temp,int count) {
         }
 
         temp[strlen(temp) - 1] = '\0';
-        string= strcpy(string,temp);
+        string = strcpy(string, temp);
 
 
-    }
-    else if(countWords(string)==1)
-    {
+    } else if (countWords(string) == 1) {
         capitalLater(string);
     }
 

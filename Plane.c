@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Plane.h"
+#include "StringFunc.h"
 
 
 const char *typeTitle[eNofTypes] = {"PASSENGER", "FREIGHT", "ARMY"};
@@ -10,9 +11,9 @@ void initPlane(Plane *plane) {
     char code[255];
     do {
         printf("Please enter a code for plane : ");
-        gets(code);
-    } while (strlen(code)!=4 || checkerCode(code)==0);
-    plane->code = strdup(code);
+        strcpy(code, getStringFromUser(code));
+    } while (strlen(code) != 4 || checkerCode(code) == 0);
+    plane->code = myStrdup(code);
     plane->type = getType();
 }
 
@@ -34,16 +35,14 @@ void printPlane(const Plane *plane) {
     printf("Plane type is: %s\n", typeTitle[plane->type]);
 }
 
-void freePlane(Plane* plane)
-{
+void freePlane(Plane *plane) {
     free(plane->code);
 }
 
-int checkerCode(const char* codes){  //TODO: Сделать проверку на длину кода!!
+int checkerCode(const char *codes) {
     int i;
-    for(i=0;i< strlen(codes);i++)
-    {
-        if(codes[i]<'A'||codes[i]>'Z')
+    for (i = 0; i < strlen(codes); i++) {
+        if (codes[i] < 'A' || codes[i] > 'Z')
             return 0;
     }
     return 1;

@@ -14,23 +14,11 @@
 int main() {
 
 //TODO: MYSTRDUP
-    int choose ;
+    int choose;
     AirportManager airportManager;
     Airport airport;
     Airline airline;
-//    initAirportManager(&airportManager);
-//
-//    printf("Do you want to add an airport?\n");
-//    choose = checkValidityAnswer1or2(&choose);
-//    //scanf("%d", &choose);
-//    //getchar();
-//    while (choose == 1) {
-//        initAirport(&airport);
-//        addAirport(&airportManager, &airport);
-//        printf("If you want add Airport press 1\n");
-//        scanf("%d", &choose);
-//        getchar();
-//    }
+
 
     firstInitAirportManager(&airportManager, &airport);
 
@@ -56,12 +44,11 @@ int main() {
         scanf("%d", &chooser);
 
 
-
         switch (chooser) {
             case 1:
                 Flight flight;
-                initFlight(&flight);
-                addFlight(&flight, &airline);
+                initFlight(&flight, &airportManager);
+                addFlight(&flight, &airline, &airportManager);
                 break;
 
             case 2:

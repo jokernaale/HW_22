@@ -3,6 +3,7 @@
 
 #include "Date.h"
 #include "Plane.h"
+#include "AirportManager.h"
 
 
 #define SIZE 255
@@ -14,7 +15,7 @@ typedef struct {
 
 } Flight;
 
-void initFlight(Flight *flight);
+void initFlight(Flight *flight, AirportManager *airportManager);
 
 void printFlight(const Flight *flight);
 
@@ -28,6 +29,7 @@ int isPlaneTypeInFlight(const Flight *flight, type typePlane);
 
 int checkName(const char *flightName1, const char *flightName2);
 
-void freeFlight(Flight* flight);
+void freeFlight(Flight *flight);
+
 
 #endif

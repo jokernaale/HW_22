@@ -3,26 +3,19 @@
 #include <stdlib.h>
 #include "AirportManager.h"
 
-int checkValidityAnswer1or2(int *answer) //TODO:07-12-2021
-{
-    do
-    {
+int checkValidityAnswer1or2(int *answer) {
+    do {
         printf("Enter one of two choices.\n1-yes 2-no\n");
         scanf("%d", answer);
-        if (*answer == 1 || *answer == 2)
-        {
-            rewind(stdin); //TODO: проверить или тут надо чистить буффер?
+        if (*answer == 1 || *answer == 2) {
+            rewind(stdin);
             return *answer;
         }
     } while (*answer != 1 || *answer != 2);
-    rewind(stdin); //TODO: проверить или тут надо чистить буффер?
+    rewind(stdin);
     return *answer;
 }
 
-void initAirportManager(AirportManager *airportManager) {
-    airportManager->airportArr=NULL;
-    airportManager->countOfAirport = 0;
-}
 
 void printAirportManager(const AirportManager *airportManager) {
 
@@ -37,19 +30,15 @@ void printAirportManager(const AirportManager *airportManager) {
 }
 
 int addAirport(AirportManager *airportManager, Airport *airport) {
-    int i;
-    for (i = 0; i < airportManager->countOfAirport; ++i) {
-        if (isSameAirport(airport, &airportManager->airportArr[i]) == 1) {
-            printf("We have already the same Airport in our system\n");
-            return 1;
-        }
-    }
+
+    if (findAirportByName(airport->name, airportManager) != NULL)
+        printf("We already have this airport in our system\n");
     airportManager->airportArr = (Airport *) realloc(airportManager->airportArr,
                                                      (airportManager->countOfAirport + 1) * sizeof(Airport));
     if (!airportManager->airportArr) {
         printf("ERROR! Out of memory!\n");
         return -1;
-    }
+    }   //TODO: Вывести в метод если будет время
     airportManager->airportArr[airportManager->countOfAirport] = *airport;
     airportManager->countOfAirport++;
     return 0;
@@ -58,7 +47,7 @@ int addAirport(AirportManager *airportManager, Airport *airport) {
 Airport *findAirportByName(char *name, AirportManager *airportManager) {
     int i;
     for (i = 0; i < airportManager->countOfAirport; i++) {
-        if (isAirportName(name, &airportManager->airportArr[i]) == 0) {
+        if (isAirportName(name, &airportManager->airportArr[i]) == 1) {
             return &airportManager->airportArr[i];
         }
 
@@ -67,26 +56,21 @@ Airport *findAirportByName(char *name, AirportManager *airportManager) {
     return NULL;
 }
 
-void firstInitAirportManager(AirportManager* airportManager, Airport* airport) //TODO:07-12-2021
-{
-    airportManager->airportArr=NULL;
+void firstInitAirportManager(AirportManager *airportManager, Airport *airport) {
+    airportManager->airportArr = NULL;
     airportManager->countOfAirport = 0;
     int choose;
 
-    do
-    {
+    do {
         printf("Do you want to add an airport?\n");
         choose = checkValidityAnswer1or2(&choose);
-        if(choose == 1)
-        {
+        if (choose == 1) {
             initAirport(airport);
             addAirport(airportManager, airport);
-        }
-        else
-        {
+        } else {
             printf("You choose not to add an airport.\n");
         }
-    }while(choose == 1);
+    } while (choose == 1);
 
 }
 

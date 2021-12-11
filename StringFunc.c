@@ -14,11 +14,11 @@ int checkIfSpaceGiven(char *workPointer) {
 }
 
 char *myGets(char *buf, size_t size) {
-//    int c;
+
     if (buf != NULL && size > 0) {
         if (fgets(buf, size, stdin)) {
             buf[strcspn(buf, "\n")] = '\0';
-            rewind(stdin); //TODO: проверить или тут надо чистить буффер?
+            rewind(stdin);
             return buf;
         }
         *buf = '\0';
@@ -30,6 +30,6 @@ char *getStringFromUser(char *workArray) {
     do {
         if ((*workArray) == '\0') printf("You have entered an empty data. Please reenter the data.\n");
         myGets(workArray, MAXSIZE);
-    } while ((*workArray) == '\0'); //TODO: while our string will not an emptyStrung
+    } while ((*workArray) == '\0');
     return workArray;
 }

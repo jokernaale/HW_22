@@ -4,22 +4,31 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Flight.h"
-#include "Date.h"
-#include "Plane.h"
+
+#include "StringFunc.h"
 
 
-void initFlight(Flight *flight) {
+void initFlight(Flight *flight, AirportManager *airportManager) {
     char departureName[SIZE];
     char arrivalName[SIZE];
-    gets(); //TODO: MYGETS
-    printf("Please enter departure name : \n");
-    gets(departureName);
-    printf("Please enter arrival name : \n");
-    gets(arrivalName);
+    rewind(stdin);
 
-    flight->departureNameAirport = strdup(departureName);
-    flight->arrivalNameAirport = strdup(arrivalName);
-    //TODO: FREE!!!!!
+    do
+    {
+
+        printf("Please enter departure name of Airport : \n");
+        strcpy(departureName, getStringFromUser(departureName));
+        if(findAirportByName(departureName, airportManager) == NULL) printf("No airport with this name - try again.\n");
+    } while (findAirportByName(departureName, airportManager) == NULL);
+    do
+    {
+        printf("Please enter arrival name of Airport : \n");
+        strcpy(arrivalName, getStringFromUser(arrivalName));
+        if(findAirportByName(arrivalName, airportManager) == NULL) printf("No airport with this name - try again.\n");
+        else if(checkName(departureName, arrivalName) == 1 ) printf("Same departure and arrival airport.\n");
+    } while (findAirportByName(arrivalName, airportManager) == NULL || checkName(departureName, arrivalName) == 1);
+    flight->departureNameAirport = myStrdup(departureName);
+    flight->arrivalNameAirport = myStrdup(arrivalName);
     initPlane(&flight->plane);
     initDate(&flight->date);
 
@@ -63,8 +72,9 @@ int checkName(const char *flightName1, const char *flightName2) {
         return 1;
     return 0;
 }
-void freeFlight(Flight* flight)
-{
+
+
+void freeFlight(Flight *flight) {
     free(flight->departureNameAirport);
     free(flight->arrivalNameAirport);
     freePlane(&flight->plane);
